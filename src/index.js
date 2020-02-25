@@ -1,1 +1,2 @@
-console.log("TEST");
+import arraySorting from "./arraySorting.js";
+
