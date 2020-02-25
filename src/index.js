@@ -10,4 +10,8 @@ document.getElementById("sortButton").addEventListener("click", () => {
     displayController.drawArray(sortedArray);
 })
 
+document.getElementById("unsortButton").addEventListener("click", () => {
+    displayController.drawArray(testArray);
+})
+
 console.log(sortedArray);
