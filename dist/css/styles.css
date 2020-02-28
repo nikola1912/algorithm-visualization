@@ -23,3 +23,11 @@
     width: 20px;
     height: 100%;
 }
+
+.selected {
+    background-color: rgb(179, 101, 0);
+}
+
+.highlighted {
+    background-color: rgb(255, 236, 212);
+}

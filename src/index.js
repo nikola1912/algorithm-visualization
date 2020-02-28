@@ -7,7 +7,7 @@ displayController.drawArray(testArray);
 
 document.getElementById("sortButton").addEventListener("click", async () => {
     let sortedArray = await sortingAlgorithms.bubbleSort(testArray);
-    displayController.drawArray(sortedArray);
+    //displayController.drawArray(sortedArray);
     console.log(sortedArray);
 })
 
