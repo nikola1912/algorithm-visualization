@@ -1,6 +1,13 @@
 import displayController from "./displayController.js";
 
-const speed = 50;
+let speed = 100;
+let maxSpeed = 700;
+
+const setSpeed = newSpeed => speed = newSpeed;
+const getSpeed = () => speed;
+
+const setMaxSpeed = newMaxSpeed => maxSpeed = newMaxSpeed;
+const getMaxSpeed = () => maxSpeed;
 
 const removeHighlight = async (bar) => {
     await new Promise(resolve => {
@@ -55,4 +62,4 @@ const sortingAlgorithms = (() => {
     };
 })();
 
-export default sortingAlgorithms;
+export { sortingAlgorithms, setSpeed, getSpeed, setMaxSpeed, getMaxSpeed };

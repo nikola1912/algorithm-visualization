@@ -20,7 +20,7 @@
     justify-content: center;
     align-items: flex-end;
     background-color: rgb(255, 145, 0);
-    width: 20px;
+    width: 17px;
     height: 100%;
 }
 
@@ -30,4 +30,8 @@
 
 .highlighted {
     background-color: rgb(255, 236, 212);
+}
+
+#speedSlider {
+    direction: rtl;
 }
