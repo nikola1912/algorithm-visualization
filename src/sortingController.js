@@ -4,9 +4,10 @@ import sortingAlgorithms from "./sortingAlgorithms.js";
 
 const sortingController = (() => {
 
-    const array = testObjects.testArray.slice();
+    let sortingState = false; //true = ON | false = OFF
     let speed = 100;
     let maxSpeed = 700;
+    const array = testObjects.testArray.slice();
 
     const setSpeed = newSpeed => speed = newSpeed;
     const getSpeed = () => speed;
@@ -15,12 +16,14 @@ const sortingController = (() => {
     const getMaxSpeed = () => maxSpeed;
 
     const handleSort = async () => {
+        sortingState = true;
         let sortedArray = await sortingAlgorithms.bubbleSort(array);
+        sortingState = false;
         console.log(sortedArray);
     };
 
     const handleUnsort = () => {
-        displayController.drawArray(array);
+        if (!sortingState) displayController.drawArray(array);
     };
 
     const handleSpeedChange = () => {
