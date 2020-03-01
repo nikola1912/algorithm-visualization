@@ -1,20 +1,12 @@
 import displayController from "./displayController.js";
-
-let speed = 100;
-let maxSpeed = 700;
-
-const setSpeed = newSpeed => speed = newSpeed;
-const getSpeed = () => speed;
-
-const setMaxSpeed = newMaxSpeed => maxSpeed = newMaxSpeed;
-const getMaxSpeed = () => maxSpeed;
+import sortingController from "./sortingController.js";
 
 const removeHighlight = async (bar) => {
     await new Promise(resolve => {
         setTimeout(() => {
             bar.classList.remove("highlighted");
             resolve();
-        }, speed);
+        }, sortingController.getSpeed());
     });
 };
 
@@ -23,7 +15,7 @@ const switchPlaces = async (chart, i, j) => {
         setTimeout(() => {
             displayController.switchPlaces(chart, i, j);
             resolve();
-        }, speed);
+        }, sortingController.getSpeed());
     });
 };
 
@@ -62,4 +54,4 @@ const sortingAlgorithms = (() => {
     };
 })();
 
-export { sortingAlgorithms, setSpeed, getSpeed, setMaxSpeed, getMaxSpeed };
+export default sortingAlgorithms;
