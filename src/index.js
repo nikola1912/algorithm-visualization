@@ -6,11 +6,7 @@ const testArray = testObjects.testArray.slice();
 displayController.drawArray(testArray);
 console.log(testArray);
 
-const speed = sortingController.getSpeed();
-const maxSpeed = sortingController.getMaxSpeed();
-
-document.getElementById("speedSlider").value = speed;
-document.getElementById("speedSlider").max = maxSpeed;
-document.getElementById("value").innerHTML = maxSpeed - speed;
+document.getElementById("speedSlider").value = sortingController.getSpeed();
+document.getElementById("speedSlider").max = sortingController.getMaxSpeed();
 
 sortingController.applyEventListeners();

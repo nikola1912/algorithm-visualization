@@ -68,7 +68,6 @@ const sortingController = (() => {
 
     const handleSpeedChange = () => {
         let newSpeed = document.getElementById("speedSlider").value;
-        document.getElementById("value").innerHTML = getMaxSpeed() - newSpeed;
         setSpeed(newSpeed);
     };
     
