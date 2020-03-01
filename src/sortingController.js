@@ -7,6 +7,7 @@ const sortingController = (() => {
     let sortingState = false; //true = ON | false = OFF
     let isSorted = false;
     let pauseState = false;
+    let resetState = false;
     let speed = 100;
     let maxSpeed = 700;
     const array = testObjects.testArray.slice();
@@ -18,6 +19,8 @@ const sortingController = (() => {
     const getMaxSpeed = () => maxSpeed;
 
     const getPauseState = () => pauseState;
+    const getResetState = () => resetState;
+    const setResetState = () => resetState = !resetState;
 
     const handleSort = async () => {
         if (!sortingState && !isSorted) {
@@ -25,10 +28,17 @@ const sortingController = (() => {
             displayController.displayPause();
 
             let sortedArray = await sortingAlgorithms.bubbleSort(array);
-    
-            isSorted = true;
-            sortingState = false;
-            pauseState = false;
+            
+            if (!resetState) {
+                sortingState = false;
+                pauseState = false;
+                isSorted = true;
+            } else {
+                sortingState = false;
+                pauseState = false;
+                isSorted = false;
+                resetState = false;
+            }
             displayController.displayPlay();
             console.log(sortedArray);
         } else if (sortingState) {
@@ -43,10 +53,10 @@ const sortingController = (() => {
     };
 
     const handleUnsort = () => {
-        if (!sortingState) {
-            displayController.drawArray(array);
-            isSorted = false;   
-        }
+        if (isSorted) displayController.drawArray(array)
+        else if (!sortingState || pauseState) resetState = true;
+        displayController.drawArray(array);
+        isSorted = false; 
     };
 
     const handleSpeedChange = () => {
@@ -65,7 +75,9 @@ const sortingController = (() => {
         applyEventListeners,
         getSpeed,
         getMaxSpeed,
-        getPauseState
+        getPauseState,
+        getResetState,
+        setResetState
     };
 })();
 

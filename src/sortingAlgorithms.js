@@ -47,6 +47,10 @@ const sortingAlgorithms = (() => {
                 highlightedBar.classList.add("highlighted");
                 
                 if (sortingController.getPauseState()) {
+                    if (sortingController.getResetState()) {
+                        highlightedBar.classList.remove("highlighted");
+                        return;
+                    }
                     j = await handlePause(j);
                 } else if (array[i] > array[j]) {
                     [array[i], array[j]] = [array[j], array[i]];
@@ -55,7 +59,6 @@ const sortingAlgorithms = (() => {
                 } else {
                     await removeHighlight(highlightedBar);
                 }
-                
             }
             selectedBar.classList.remove("selected");
             selectedBar.classList.add("sorted");
