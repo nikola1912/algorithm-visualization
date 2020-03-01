@@ -26,6 +26,7 @@ const sortingController = (() => {
         if (!sortingState && !isSorted) {
             sortingState = true;
             displayController.displayPause();
+            displayController.buttonsOFF();
 
             let sortedArray = await sortingAlgorithms.bubbleSort(array);
             
@@ -41,14 +42,17 @@ const sortingController = (() => {
                 resetState = false;
             }
             displayController.displayPlay();
+            displayController.buttonsON();
             console.log(sortedArray);
         } else if (sortingState) {
             if (!pauseState) {
                 pauseState = true;
                 displayController.displayPlay();
+                displayController.buttonsON();
             } else {
                 pauseState = false;
                 displayController.displayPause();
+                displayController.buttonsOFF();
             }
         }
     };

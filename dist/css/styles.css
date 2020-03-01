@@ -78,3 +78,7 @@
 #pauseIcon {
     display: none;
 }
+
+#undoIcon {
+    transform: rotate(180deg);
+}

@@ -27,20 +27,31 @@ const displayController = (() => {
     };
 
     const displayPlay = () => {
-        document.getElementById("unsortButton").disabled = false;
         document.getElementById("playIcon").style.display = "inline";
         document.getElementById("pauseIcon").style.display = "none";
     };
 
     const displayPause = () => {
-        document.getElementById("unsortButton").disabled = true;
         document.getElementById("playIcon").style.display = "none";
         document.getElementById("pauseIcon").style.display = "block";
     };
 
+    const buttonsOFF = () => {
+        document.getElementById("unsortButton")  .disabled = true;
+        document.getElementById("lastStepButton").disabled = true;
+        document.getElementById("nextStepButton").disabled = true;
+        document.getElementById("completeSort")  .disabled = true;
+    }
+
+    const buttonsON = () => {
+        document.getElementById("unsortButton")  .disabled = false;
+        document.getElementById("lastStepButton").disabled = false;
+        document.getElementById("nextStepButton").disabled = false;
+        document.getElementById("completeSort")  .disabled = false;
+    }
+
     const toggleSort = () => {
         document.getElementById("sortButton").disabled = !document.getElementById("sortButton").disabled;
-        document.getElementById("sortButton").classList.toggle("disabled");
     }
 
     return {
@@ -48,6 +59,8 @@ const displayController = (() => {
         switchPlaces,
         displayPlay,
         displayPause,
+        buttonsON,
+        buttonsOFF,
         toggleSort
     };
 })();
