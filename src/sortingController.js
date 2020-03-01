@@ -9,7 +9,7 @@ const sortingController = (() => {
     let pauseState = false;
     let resetState = false;
     let speed = 100;
-    let maxSpeed = 700;
+    let maxSpeed = 400;
     const array = testObjects.testArray.slice();
 
     const setSpeed = newSpeed => speed = newSpeed;
@@ -33,6 +33,7 @@ const sortingController = (() => {
                 sortingState = false;
                 pauseState = false;
                 isSorted = true;
+                displayController.toggleSort();
             } else {
                 sortingState = false;
                 pauseState = false;
@@ -53,8 +54,10 @@ const sortingController = (() => {
     };
 
     const handleUnsort = () => {
-        if (isSorted) displayController.drawArray(array)
-        else if (!sortingState || pauseState) resetState = true;
+        if (isSorted) {
+            displayController.drawArray(array);
+            displayController.toggleSort();
+        } else if (!sortingState || pauseState) resetState = true;
         displayController.drawArray(array);
         isSorted = false; 
     };

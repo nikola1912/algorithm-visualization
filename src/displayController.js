@@ -38,11 +38,17 @@ const displayController = (() => {
         document.getElementById("pauseIcon").style.display = "block";
     };
 
+    const toggleSort = () => {
+        document.getElementById("sortButton").disabled = !document.getElementById("sortButton").disabled;
+        document.getElementById("sortButton").classList.toggle("disabled");
+    }
+
     return {
         drawArray,
         switchPlaces,
         displayPlay,
-        displayPause
+        displayPause,
+        toggleSort
     };
 })();
 
