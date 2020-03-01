@@ -37,6 +37,10 @@
     background-color: rgb(255, 236, 212);
 }
 
+.sorted {
+    background-color: rgb(255, 177, 75);
+}
+
 #speedSlider {
     direction: rtl;
 }

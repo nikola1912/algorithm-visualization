@@ -19,6 +19,16 @@ const switchPlaces = async (chart, i, j) => {
     });
 };
 
+const handlePause = async (step) => {
+    step--;
+    await new Promise(resolve => {
+        setTimeout(() => {
+            resolve();
+        }, 0);
+    });
+    return step
+};
+
 /*----------------------------------------------------------------------------------------*/
 
 const sortingAlgorithms = (() => {
@@ -26,7 +36,7 @@ const sortingAlgorithms = (() => {
     const bubbleSort = async (arrayOriginal) => {
         let array = arrayOriginal.slice();
         let chart = document.getElementById("chart");
-        for (let i = 0; i < array.length - 1; i++) {
+        for (let i = 0; i < array.length; i++) {
 
             let selectedBar = chart.children[i];
             selectedBar.classList.add("selected");
@@ -35,16 +45,20 @@ const sortingAlgorithms = (() => {
 
                 let highlightedBar = chart.children[j];
                 highlightedBar.classList.add("highlighted");
-
-                if (array[i] > array[j]) {
+                
+                if (sortingController.getPauseState()) {
+                    j = await handlePause(j);
+                } else if (array[i] > array[j]) {
                     [array[i], array[j]] = [array[j], array[i]];
                     await switchPlaces(chart, i, j);
                     selectedBar = chart.children[i];
                 } else {
                     await removeHighlight(highlightedBar);
                 }
+                
             }
             selectedBar.classList.remove("selected");
+            selectedBar.classList.add("sorted");
         }
         return array;
     };

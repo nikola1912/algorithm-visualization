@@ -26,9 +26,23 @@ const displayController = (() => {
         [bars[i].outerHTML, bars[j].outerHTML] = [bars[j].outerHTML, bars[i].outerHTML];
     };
 
+    const displayPlay = () => {
+        document.getElementById("unsortButton").disabled = false;
+        document.getElementById("playIcon").style.display = "inline";
+        document.getElementById("pauseIcon").style.display = "none";
+    };
+
+    const displayPause = () => {
+        document.getElementById("unsortButton").disabled = true;
+        document.getElementById("playIcon").style.display = "none";
+        document.getElementById("pauseIcon").style.display = "block";
+    };
+
     return {
         drawArray,
-        switchPlaces
+        switchPlaces,
+        displayPlay,
+        displayPause
     };
 })();
 
