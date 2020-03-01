@@ -1,6 +1,11 @@
+#wrapper {
+    width: 600px;
+    height: auto;
+}
+
 #chart-container {
     background-color: rgb(212, 212, 212);
-    width: 600px;
+    
     height: 350px;
     padding: 10px;
 }
@@ -34,4 +39,38 @@
 
 #speedSlider {
     direction: rtl;
+}
+
+#sortButtons {
+    display: flex;
+}
+
+.button {
+    background-color: rgb(221, 221, 221);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: none;
+    margin: 5px;
+    outline: 0;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: rgb(207, 207, 207)
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.button:disabled:hover {
+    background-color: rgb(221, 221, 221);
+}
+
+#pauseIcon {
+    display: none;
 }

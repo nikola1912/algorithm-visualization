@@ -7,23 +7,36 @@
     <title>Algorithm Visualization</title>
 </head>
 <body>
-    <div id="chart-container">
-        <div id="chart">
-            
+    <div id="wrapper">
+
+        <div id="chart-container">
+            <div id="chart"></div>
         </div>
-    </div>
-
-    <button class="button" id="sortButton">
-        SORT
-    </button>
-
-    <button class="button" id="unsortButton">
-        UNSORT
-    </button>
-
-    <div class="sliderContainer">
-        <input type="range" min="0" max="700" value="100" step="10" class="slider" id="speedSlider"><br>
-        Speed: <span id="value"></span>
+    
+        <div id="buttons">
+            <div id="sortButtons">
+                <button class="button" id="sortButton">
+                    <img src="https://img.icons8.com/ios-glyphs/15/000000/play.png" id="playIcon">
+                    <img src="https://img.icons8.com/ios-glyphs/15/000000/pause.png" id="pauseIcon">
+                </button>
+            
+                <button class="button" id="unsortButton">
+                    <img src="https://img.icons8.com/android/15/000000/recurring-appointment.png">
+                </button>
+            </div>
+        
+            <div class="sliderContainer">
+                <input type="range" min="0" max="700" value="100" step="10" class="slider" id="speedSlider"><br>
+                Speed: <span id="value"></span>
+            </div>
+    
+            <div id="stepSortButtons">
+                <button>
+    
+                </button>
+    
+            </div>
+        </div>
     </div>
 
     <script src="main.js"></script>
