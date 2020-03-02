@@ -30,20 +30,20 @@ const sortingController = (() => {
 
             let sortedArray = await sortingAlgorithms.bubbleSort(array);
             
+            displayController.displayPlay();
+            displayController.buttonsON();
             if (!resetState) {
                 sortingState = false;
                 pauseState = false;
                 isSorted = true;
                 displayController.toggleSort();
+                console.log(sortedArray);
             } else {
                 sortingState = false;
                 pauseState = false;
                 isSorted = false;
                 resetState = false;
             }
-            displayController.displayPlay();
-            displayController.buttonsON();
-            console.log(sortedArray);
         } else if (sortingState) {
             if (!pauseState) {
                 pauseState = true;
@@ -61,7 +61,7 @@ const sortingController = (() => {
         if (isSorted) {
             displayController.drawArray(array);
             displayController.toggleSort();
-        } else if (!sortingState || pauseState) resetState = true;
+        } else if (pauseState) resetState = true;
         displayController.drawArray(array);
         isSorted = false; 
     };
