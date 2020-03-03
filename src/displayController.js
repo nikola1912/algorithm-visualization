@@ -37,17 +37,17 @@ const displayController = (() => {
     };
 
     const buttonsOFF = () => {
-        document.getElementById("unsortButton")  .disabled = true;
-        document.getElementById("lastStepButton").disabled = true;
-        document.getElementById("nextStepButton").disabled = true;
-        document.getElementById("completeSort")  .disabled = true;
+        document.getElementById("unsortButton")      .disabled = true;
+        document.getElementById("lastStepButton")    .disabled = true;
+        document.getElementById("nextStepButton")    .disabled = true;
+        document.getElementById("completeSortButton").disabled = true;
     }
 
     const buttonsON = () => {
-        document.getElementById("unsortButton")  .disabled = false;
-        document.getElementById("lastStepButton").disabled = false;
-        document.getElementById("nextStepButton").disabled = false;
-        document.getElementById("completeSort")  .disabled = false;
+        document.getElementById("unsortButton")      .disabled = false;
+        document.getElementById("lastStepButton")    .disabled = false;
+        document.getElementById("nextStepButton")    .disabled = false;
+        document.getElementById("completeSortButton").disabled = false;
     }
 
     const toggleSort = () => {

@@ -33,7 +33,17 @@ const handlePause = async (step) => {
 
 const sortingAlgorithms = (() => {
 
-    const bubbleSort = async (arrayOriginal) => {
+    const bubbleSort = (arrayOriginal) => {
+        let array = arrayOriginal.slice();
+        for (let i = 0; i < array.length; i++) {
+            for (let j = i + 1; j < array.length; j++) {
+                if (array[i] > array[j]) [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        return array;
+    }
+
+    const bubbleSortVisualized = async (arrayOriginal) => {
         let array = arrayOriginal.slice();
         let chart = document.getElementById("chart");
         for (let i = 0; i < array.length; i++) {
@@ -47,7 +57,7 @@ const sortingAlgorithms = (() => {
                 highlightedBar.classList.add("highlighted");
                 
                 if (sortingController.getPauseState()) {
-                    if (sortingController.getResetState()) {
+                    if (sortingController.getResetState() || sortingController.getCompleteSortState()) {
                         highlightedBar.classList.remove("highlighted");
                         return;
                     }
@@ -67,7 +77,8 @@ const sortingAlgorithms = (() => {
     };
 
     return {
-        bubbleSort
+        bubbleSort,
+        bubbleSortVisualized
     };
 })();
 

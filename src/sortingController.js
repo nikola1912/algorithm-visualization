@@ -4,10 +4,11 @@ import sortingAlgorithms from "./sortingAlgorithms.js";
 
 const sortingController = (() => {
 
-    let sortingState = false; //true = ON | false = OFF
+    let sortingState = false;
     let isSorted = false;
     let pauseState = false;
     let resetState = false;
+    let completeSortState = false;
     let speed = 100;
     let maxSpeed = 400;
     const array = testObjects.testArray.slice();
@@ -20,19 +21,20 @@ const sortingController = (() => {
 
     const getPauseState = () => pauseState;
     const getResetState = () => resetState;
-    const setResetState = () => resetState = !resetState;
-
+    const getCompleteSortState = () => completeSortState;
+    
     const handleSort = async () => {
         if (!sortingState && !isSorted) {
             sortingState = true;
             displayController.displayPause();
             displayController.buttonsOFF();
 
-            let sortedArray = await sortingAlgorithms.bubbleSort(array);
+            let sortedArray = await sortingAlgorithms.bubbleSortVisualized(array);
             
             displayController.displayPlay();
             displayController.buttonsON();
             if (!resetState) {
+                completeSortState = false;
                 sortingState = false;
                 pauseState = false;
                 isSorted = true;
@@ -59,11 +61,32 @@ const sortingController = (() => {
 
     const handleUnsort = () => {
         if (isSorted) {
-            displayController.drawArray(array);
             displayController.toggleSort();
         } else if (pauseState) resetState = true;
         displayController.drawArray(array);
         isSorted = false; 
+    };
+
+    const handleLastStep = () => {
+        
+    };
+    
+    const handleNextStep = () => {
+        
+    };
+    
+    const handleCompleteSort = () => {
+        if (!isSorted) {
+            let sortedArray = sortingAlgorithms.bubbleSort(array);
+            displayController.drawArray(sortedArray);
+            if (!sortingState) {
+                isSorted = true; 
+                displayController.toggleSort();
+                console.log(sortedArray);
+            } else {
+                completeSortState = true;
+            }
+        }
     };
 
     const handleSpeedChange = () => {
@@ -72,9 +95,12 @@ const sortingController = (() => {
     };
     
     const applyEventListeners = () => {
-        document.getElementById("sortButton").addEventListener("click", handleSort),
-        document.getElementById("unsortButton").addEventListener("click", handleUnsort),
-        document.getElementById("speedSlider").addEventListener("input", handleSpeedChange);
+        document.getElementById("sortButton")        .addEventListener("click", handleSort),
+        document.getElementById("unsortButton")      .addEventListener("click", handleUnsort),
+        document.getElementById("lastStepButton")    .addEventListener("click", handleLastStep);
+        document.getElementById("nextStepButton")    .addEventListener("click", handleNextStep);
+        document.getElementById("completeSortButton").addEventListener("click", handleCompleteSort);
+        document.getElementById("speedSlider")       .addEventListener("input", handleSpeedChange);
     };
 
     return {
@@ -83,7 +109,7 @@ const sortingController = (() => {
         getMaxSpeed,
         getPauseState,
         getResetState,
-        setResetState
+        getCompleteSortState
     };
 })();
 
