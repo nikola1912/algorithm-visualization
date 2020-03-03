@@ -11,6 +11,8 @@ const sortingController = (() => {
     let pauseState        = false;
     let resetState        = false;
     let completeSortState = false;
+    let lastStepTrigger   = false;
+    let nextStepTrigger   = false;
 
     let speed = 100;
     let maxSpeed = 400;
@@ -22,6 +24,8 @@ const sortingController = (() => {
     const getPauseState        = () => pauseState;
     const getResetState        = () => resetState;
     const getCompleteSortState = () => completeSortState;
+    const getLastStepTrigger   = () => lastStepTrigger;
+    const setLastStepTrigger   = () => lastStepTrigger = !lastStepTrigger;
     
     const handleSort = async () => {
         if (!sortingState && !isSorted) {
@@ -67,7 +71,7 @@ const sortingController = (() => {
     };
 
     const handleLastStep = () => {
-        
+        lastStepTrigger = true;
     };
     
     const handleNextStep = () => {
@@ -77,7 +81,7 @@ const sortingController = (() => {
     const handleCompleteSort = () => {
         if (!isSorted) {
             let sortedArray = sortingAlgorithms.bubbleSort(array);
-            displayController.drawArray(sortedArray);
+            displayController.drawArray(sortedArray, true);
             if (!sortingState) {
                 isSorted = true; 
                 displayController.toggleSort();
@@ -106,7 +110,9 @@ const sortingController = (() => {
         getMaxSpeed,
         getPauseState,
         getResetState,
-        getCompleteSortState
+        getCompleteSortState,
+        getLastStepTrigger,
+        setLastStepTrigger
     };
 })();
 
