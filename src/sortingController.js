@@ -4,7 +4,8 @@ import sortingAlgorithms from "./sortingAlgorithms.js";
 
 const sortingController = (() => {
     
-    const array = testObjects.testArray.slice();
+    let array
+    const setArray = inputArray => array = [...inputArray];
 
     let sortingState      = false;
     let isSorted          = false;
@@ -98,13 +99,14 @@ const sortingController = (() => {
     const applyEventListeners = () => {
         document.getElementById("sortButton")        .addEventListener("click", handleSort),
         document.getElementById("unsortButton")      .addEventListener("click", handleUnsort),
-        document.getElementById("lastStepButton")    .addEventListener("click", handleLastStep);
+        //document.getElementById("lastStepButton")    .addEventListener("click", handleLastStep);
         document.getElementById("nextStepButton")    .addEventListener("click", handleNextStep);
         document.getElementById("completeSortButton").addEventListener("click", handleCompleteSort);
         document.getElementById("speedSlider")       .addEventListener("input", handleSpeedChange);
     };
 
     return {
+        setArray,
         applyEventListeners,
         getSpeed,
         getMaxSpeed,

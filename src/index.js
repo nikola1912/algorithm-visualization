@@ -9,4 +9,5 @@ console.log(testArray);
 document.getElementById("speedSlider").value = sortingController.getSpeed();
 document.getElementById("speedSlider").max = sortingController.getMaxSpeed();
 
+sortingController.setArray(testArray);
 sortingController.applyEventListeners();
