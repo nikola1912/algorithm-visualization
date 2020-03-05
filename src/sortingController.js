@@ -4,8 +4,11 @@ import sortingAlgorithms from "./sortingAlgorithms.js";
 
 const sortingController = (() => {
     
-    let array
-    const setArray = inputArray => array = [...inputArray];
+    let array;
+    let sortingSteps;
+    const setArray        = inputArray        => array        = [...inputArray];
+    const setSortingSteps = inputSortingSteps => sortingSteps = [...inputSortingSteps];
+    const getSortingStep  = step => sortingSteps[step];
 
     let sortingState      = false;
     let isSorted          = false;
@@ -97,9 +100,9 @@ const sortingController = (() => {
     };
     
     const applyEventListeners = () => {
-        document.getElementById("sortButton")        .addEventListener("click", handleSort),
-        document.getElementById("unsortButton")      .addEventListener("click", handleUnsort),
-        //document.getElementById("lastStepButton")    .addEventListener("click", handleLastStep);
+        document.getElementById("sortButton")        .addEventListener("click", handleSort);
+        document.getElementById("unsortButton")      .addEventListener("click", handleUnsort);
+        document.getElementById("lastStepButton")    .addEventListener("click", handleLastStep);
         document.getElementById("nextStepButton")    .addEventListener("click", handleNextStep);
         document.getElementById("completeSortButton").addEventListener("click", handleCompleteSort);
         document.getElementById("speedSlider")       .addEventListener("input", handleSpeedChange);
@@ -107,6 +110,8 @@ const sortingController = (() => {
 
     return {
         setArray,
+        setSortingSteps,
+        getSortingStep,
         applyEventListeners,
         getSpeed,
         getMaxSpeed,
