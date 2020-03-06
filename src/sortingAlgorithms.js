@@ -53,37 +53,70 @@ const sortingAlgorithms = (() => {
         return array;
     }
 
-    const bubbleSortVisualized = async arrayOriginal => {
-        let step = 0;
+    const bubbleSortVisualized = async (arrayOriginal, inputI, inputStep) => {
+        let step = inputStep;
         let array = arrayOriginal.slice();
         let testArray = [...array];
         let chart = document.getElementById("chart");
-        for (let i = 0; i < array.length; i++) {
+
+        for (let i = inputI ? inputI : 0 ; i < array.length; i++) {
 
             let selectedBar = chart.children[i];
+            selectedBar.classList.remove("sorted");
             selectedBar.classList.add("selected");
 
             for (let j = i + 1; j < array.length; j++) {
 
                 let highlightedBar = chart.children[j];
+                highlightedBar.classList.remove("sorted");
                 highlightedBar.classList.add("highlighted");
                 
                 if (sortingController.getPauseState()) {
-                    if (sortingController.getResetState() || sortingController.getCompleteSortState()) {
+                    if (sortingController.getResetState()) {
                         highlightedBar.classList.remove("highlighted");
                         return;
+
+                    } else if (sortingController.getCompleteSortState()) {
+                        highlightedBar.classList.remove("highlighted");
+                        highlightedBar.classList.add("sorted");
+                        return sortingController.getSortedArray();
+
                     } else if (sortingController.getLastStepTrigger()) {
+                        let highlightTrigger = true;
                         [testArray[i], testArray[j]] = [testArray[j], testArray[i]];
-                        if (compareArrays(testArray, sortingController.getSortingStep(0))) {
-                            [array[i], array[j]] = [array[j], array[i]];
-                            await switchPlaces(chart, i, j);
-                            selectedBar = chart.children[i];
-                            document.getElementById("lastStepButton").disabled = true;
+
+                        if (step == 0) {
+                            if (i == 0 && j == 1) {
+                                if (compareArrays(testArray, sortingController.getSortingStep(0))) {
+                                    [array[i], array[j]] = [array[j], array[i]];
+                                    displayController.switchPlaces(chart, i, j);
+                                    selectedBar = chart.children[i];
+                                }
+                                highlightTrigger = false;
+                                selectedBar.classList.remove("selected");
+                                highlightedBar.classList.remove("highlighted");
+                                sortingController.setResetState();
+                                sortingController.setLastStepTrigger();
+                                return;
+                            } else {
+                                highlightedBar.classList.remove("highlighted");
+                                [testArray[i], testArray[j]] = [testArray[j], testArray[i]];
+                                if (j - 1 != i) {
+                                    j -= 1;
+                                } else {
+                                    selectedBar.classList.remove("selected");
+                                    i -= 1;
+                                    selectedBar = chart.children[i];
+                                    selectedBar.classList.remove("sorted");
+                                    selectedBar.classList.add("selected");
+                                    j = array.length - 1;
+                                }
+                            }                        
 
                         } else if (compareArrays(testArray, sortingController.getSortingStep(step-1))) {
                             step--;
                             [array[i], array[j]] = [array[j], array[i]];
-                            await switchPlaces(chart, i, j);
+                            displayController.switchPlaces(chart, i, j);
                             selectedBar = chart.children[i];
                             
                         } else {
@@ -100,9 +133,11 @@ const sortingAlgorithms = (() => {
                                 j = array.length - 1;
                             }
                         }
-                        highlightedBar = chart.children[j];
-                        highlightedBar.classList.add("highlighted");
-                        sortingController.setLastStepTrigger();
+                        if (highlightTrigger) {
+                            highlightedBar = chart.children[j];
+                            highlightedBar.classList.add("highlighted");
+                            sortingController.setLastStepTrigger();
+                        }
                     }
                     j = await handlePause(j);
 

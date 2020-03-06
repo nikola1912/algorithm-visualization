@@ -1,13 +1,16 @@
-import testObjects from "./testObjects.js";
 import displayController from "./displayController.js";
 import sortingAlgorithms from "./sortingAlgorithms.js";
 
 const sortingController = (() => {
     
     let array;
+    let sortedArray;
     let sortingSteps;
+
     const setArray        = inputArray        => array        = [...inputArray];
+    const setSortedArray  = inputSortedArray  => sortedArray  = inputSortedArray;
     const setSortingSteps = inputSortingSteps => sortingSteps = [...inputSortingSteps];
+    const getSortedArray  = ()   => sortedArray;
     const getSortingStep  = step => sortingSteps[step];
 
     let sortingState      = false;
@@ -27,17 +30,20 @@ const sortingController = (() => {
 
     const getPauseState        = () => pauseState;
     const getResetState        = () => resetState;
+    const setResetState        = () => resetState = true;
     const getCompleteSortState = () => completeSortState;
     const getLastStepTrigger   = () => lastStepTrigger;
     const setLastStepTrigger   = () => lastStepTrigger = !lastStepTrigger;
     
-    const handleSort = async () => {
+    const handleSort = async (event, inputArray, inputI, inputSteps) => {
         if (!sortingState && !isSorted) {
             sortingState = true;
-            displayController.displayPause();
-            displayController.buttonsOFF();
+            if (!pauseState) {
+                displayController.displayPause();
+                displayController.buttonsOFF();
+            }
 
-            let sortedArray = await sortingAlgorithms.bubbleSortVisualized(array);
+            setSortedArray(await sortingAlgorithms.bubbleSortVisualized(inputArray ? inputArray : array, inputI ? inputI : null, inputSteps ? inputSteps : 0));
             
             displayController.displayPlay();
             displayController.buttonsON();
@@ -53,6 +59,8 @@ const sortingController = (() => {
                 pauseState = false;
                 isSorted = false;
                 resetState = false;
+                document.getElementById("unsortButton").disabled = true;
+                document.getElementById("lastStepButton").disabled = true;
             }
         } else if (sortingState) {
             if (!pauseState) {
@@ -72,10 +80,19 @@ const sortingController = (() => {
         else if (pauseState) resetState = true;
         displayController.drawArray(array);
         isSorted = false; 
+        document.getElementById("unsortButton").disabled = true;
+        document.getElementById("lastStepButton").disabled = true;
     };
 
     const handleLastStep = () => {
-        lastStepTrigger = true;
+        if (isSorted) {
+            isSorted = false;
+            pauseState = true;
+            displayController.toggleSort();
+            handleSort(null, getSortedArray(), array.length - 2, sortingSteps.length - 1);
+        } else {
+            lastStepTrigger = true;
+        }
     };
     
     const handleNextStep = () => {
@@ -84,10 +101,11 @@ const sortingController = (() => {
     
     const handleCompleteSort = () => {
         if (!isSorted) {
-            let sortedArray = sortingAlgorithms.bubbleSort(array);
+            setSortedArray(sortingAlgorithms.bubbleSort(array));
             displayController.drawArray(sortedArray, true);
             if (!sortingState) {
                 isSorted = true; 
+                displayController.buttonsON();
                 displayController.toggleSort();
                 console.log(sortedArray);
             } else completeSortState = true;
@@ -112,11 +130,13 @@ const sortingController = (() => {
         setArray,
         setSortingSteps,
         getSortingStep,
+        getSortedArray,
         applyEventListeners,
         getSpeed,
         getMaxSpeed,
         getPauseState,
         getResetState,
+        setResetState,
         getCompleteSortState,
         getLastStepTrigger,
         setLastStepTrigger
