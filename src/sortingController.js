@@ -124,6 +124,33 @@ const sortingController = (() => {
         document.getElementById("nextStepButton")    .addEventListener("click", handleNextStep);
         document.getElementById("completeSortButton").addEventListener("click", handleCompleteSort);
         document.getElementById("speedSlider")       .addEventListener("input", handleSpeedChange);
+        document.addEventListener("keydown", (event) => {
+            switch (event.code) {
+                case "Space":
+                    handleSort();
+                    break;
+                case "Backspace":
+                    handleUnsort();
+                    break
+                case "ArrowLeft":
+                    handleLastStep();
+                    break;
+                case "ArrowRight":
+                    handleNextStep();
+                    break;
+                case "Enter":
+                    handleCompleteSort();
+                    break;
+                case "ArrowUp":
+                    setSpeed(getSpeed() - 30);
+                    document.getElementById("speedSlider").value = getSpeed();
+                    break;
+                case "ArrowDown":
+                    setSpeed(getSpeed() + 30);
+                    document.getElementById("speedSlider").value = getSpeed();
+                    break;
+            }
+        });
     };
 
     return {
