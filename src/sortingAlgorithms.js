@@ -43,6 +43,15 @@ const compareArrays = (array1, array2) => {
 
 const sortingAlgorithms = (() => {
 
+    const getPauseState        = ()     => sortingController.getPauseState();
+    const getResetState        = ()     => sortingController.getResetState();
+    const getCompleteSortState = ()     => sortingController.getCompleteSortState();
+    const getLastStepTrigger   = ()     => sortingController.getLastStepTrigger();
+    const getSortedArray       = ()     => sortingController.getSortedArray();
+    const getSortingStep       = (step) => sortingController.getSortingStep(step);
+    const setResetState        = ()     => sortingController.setResetState();
+    const setLastStepTrigger   = ()     => sortingController.setLastStepTrigger();
+
     const bubbleSort = arrayOriginal => {
         let array = arrayOriginal.slice();
         for (let i = 0; i < array.length; i++) {
@@ -71,23 +80,24 @@ const sortingAlgorithms = (() => {
                 highlightedBar.classList.remove("sorted");
                 highlightedBar.classList.add("highlighted");
                 
-                if (sortingController.getPauseState()) {
-                    if (sortingController.getResetState()) {
+                if (getPauseState()) {
+                    if (getResetState()) {
                         highlightedBar.classList.remove("highlighted");
                         return;
 
-                    } else if (sortingController.getCompleteSortState()) {
+                    } else if (getCompleteSortState()) {
                         highlightedBar.classList.remove("highlighted");
                         highlightedBar.classList.add("sorted");
-                        return sortingController.getSortedArray();
+                        return getSortedArray();
 
-                    } else if (sortingController.getLastStepTrigger()) {
+                    } else if (getLastStepTrigger()) {
+                        /////////////////////////////////////////////////////////////////////////////////////////////
                         let highlightTrigger = true;
                         [testArray[i], testArray[j]] = [testArray[j], testArray[i]];
 
                         if (step == 0) {
                             if (i == 0 && j == 1) {
-                                if (compareArrays(testArray, sortingController.getSortingStep(0))) {
+                                if (compareArrays(testArray, getSortingStep(0))) {
                                     [array[i], array[j]] = [array[j], array[i]];
                                     displayController.switchPlaces(chart, i, j);
                                     selectedBar = chart.children[i];
@@ -95,8 +105,8 @@ const sortingAlgorithms = (() => {
                                 highlightTrigger = false;
                                 selectedBar.classList.remove("selected");
                                 highlightedBar.classList.remove("highlighted");
-                                sortingController.setResetState();
-                                sortingController.setLastStepTrigger();
+                                setResetState();
+                                setLastStepTrigger();
                                 return;
                             } else {
                                 highlightedBar.classList.remove("highlighted");
@@ -113,7 +123,7 @@ const sortingAlgorithms = (() => {
                                 }
                             }                        
 
-                        } else if (compareArrays(testArray, sortingController.getSortingStep(step-1))) {
+                        } else if (compareArrays(testArray, getSortingStep(step-1))) {
                             step--;
                             [array[i], array[j]] = [array[j], array[i]];
                             displayController.switchPlaces(chart, i, j);
@@ -136,8 +146,9 @@ const sortingAlgorithms = (() => {
                         if (highlightTrigger) {
                             highlightedBar = chart.children[j];
                             highlightedBar.classList.add("highlighted");
-                            sortingController.setLastStepTrigger();
+                            setLastStepTrigger();
                         }
+                        /////////////////////////////////////////////////////////////////////////////////////////////
                     }
                     j = await handlePause(j);
 
