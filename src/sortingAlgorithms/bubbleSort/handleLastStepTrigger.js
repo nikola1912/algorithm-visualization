@@ -15,14 +15,21 @@ const compareArrays = (array1, array2) => {
     return true;
 };
 
+const switchToLastStep = (array, i, j, selectedBar) => {
+    [array[i], array[j]] = [array[j], array[i]];
+    displayController.switchPlaces(chart, i, j);
+    selectedBar = chart.children[i];
+    return [array, selectedBar];
+};
+
 const standardSwitch = (array, testArray, i, j, highlightedBar, selectedBar) => {
     highlightedBar.classList.remove("highlighted");
     [testArray[i], testArray[j]] = [testArray[j], testArray[i]];
     if (j - 1 != i) {
-        j -= 1;
+        j--;
     } else {
         selectedBar.classList.remove("selected");
-        i -= 1;
+        i--;
         selectedBar = chart.children[i];
         selectedBar.classList.remove("sorted");
         selectedBar.classList.add("selected");
@@ -39,9 +46,7 @@ const handleLastStepTrigger = (array, testArray, i, j, step, selectedBar, highli
     if (step == 0) {
         if (i == 0 && j == 1) {
             if (compareArrays(testArray, getSortingStep(0))) {
-                [array[i], array[j]] = [array[j], array[i]];
-                displayController.switchPlaces(chart, i, j);
-                selectedBar = chart.children[i];
+                [array, selectedBar] = switchToLastStep(array, i, j, selectedBar);
             }
             highlightTrigger = false;
             selectedBar.classList.remove("selected");
@@ -55,13 +60,12 @@ const handleLastStepTrigger = (array, testArray, i, j, step, selectedBar, highli
 
     } else if (compareArrays(testArray, getSortingStep(step-1))) {
         step--;
-        [array[i], array[j]] = [array[j], array[i]];
-        displayController.switchPlaces(chart, i, j);
-        selectedBar = chart.children[i];
+        [array, selectedBar] = switchToLastStep(array, i, j, selectedBar);
         
     } else {
         [array, testArray, i, j, highlightedBar, selectedBar] = standardSwitch(array, testArray, i, j, highlightedBar, selectedBar);
     }
+
     if (highlightTrigger) {
         highlightedBar = chart.children[j];
         highlightedBar.classList.add("highlighted");
