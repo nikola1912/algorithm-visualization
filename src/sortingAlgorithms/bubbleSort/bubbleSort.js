@@ -1,6 +1,7 @@
 import displayController from "displayController.js";
 import sortingController from "sortingController.js";
 import handleLastStepTrigger from "./handleLastStepTrigger.js";
+import handleNextStepTrigger from "./handleNextStepTrigger.js";
 
 const removeHighlight = async (bar) => {
     await new Promise(resolve => {
@@ -86,7 +87,7 @@ const bubbleSortModule = (() => {
                         setLastStepTrigger();
                     
                     } else if (getNextStepTrigger()) {
-                        console.log("Next Step Triggered");
+                        [array, testArray, i, j, step, selectedBar, highlightedBar] = handleNextStepTrigger(array, testArray, i, j, step, selectedBar, highlightedBar);
                         setNextStepTrigger();
                     }
 

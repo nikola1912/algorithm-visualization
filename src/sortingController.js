@@ -32,6 +32,7 @@ const sortingController = (() => {
     const getResetState        = () => resetState;
     const setResetState        = () => resetState = true;
     const getCompleteSortState = () => completeSortState;
+    const setCompleteSortState = () => completeSortState = !completeSortState;
     const getLastStepTrigger   = () => lastStepTrigger;
     const setLastStepTrigger   = () => lastStepTrigger = !lastStepTrigger;
     const getNextStepTrigger   = () => nextStepTrigger;
@@ -95,14 +96,21 @@ const sortingController = (() => {
             isSorted = false;
             pauseState = true;
             displayController.toggleSort();
+            document.getElementById("nextStepButton").disabled = false;
+            document.getElementById("completeSortButton").disabled = false;
             handleSort(null, getSortedArray(), array.length - 2, sortingSteps.length - 1);
         } else lastStepTrigger = true;
-        document.getElementById("nextStepButton").disabled = false;
-        document.getElementById("completeSortButton").disabled = false;
     };
     
     const handleNextStep = () => {
-        nextStepTrigger = true;
+        if (!isSorted) {
+            if (!sortingState) {
+                pauseState = true;
+                document.getElementById("unsortButton").disabled = false;
+                document.getElementById("lastStepButton").disabled = false;
+                handleSort(null, array);
+            } else nextStepTrigger = true;
+        }
     };
     
     const handleCompleteSort = () => {
@@ -173,6 +181,7 @@ const sortingController = (() => {
         getResetState,
         setResetState,
         getCompleteSortState,
+        setCompleteSortState,
         getLastStepTrigger,
         setLastStepTrigger,
         getNextStepTrigger,

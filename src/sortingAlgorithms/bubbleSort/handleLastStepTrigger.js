@@ -1,8 +1,8 @@
 import displayController from "displayController.js";
 import sortingController from "sortingController.js";
 
-const getSortingStep       = (step) => sortingController.getSortingStep(step);
-const setResetState        = ()     => sortingController.setResetState();
+const getSortingStep = (step) => sortingController.getSortingStep(step);
+const setResetState  = ()     => sortingController.setResetState();
 
 const compareArrays = (array1, array2) => {
     if (array1.length != array2.length)
@@ -44,9 +44,7 @@ const handleLastStepTrigger = (array, testArray, i, j, step, selectedBar, highli
 
     if (step == 0) {
         if (i == 0 && j == 1) {
-            if (compareArrays(testArray, getSortingStep(0))) {
-                [array, selectedBar] = switchToLastStep(array, i, j, selectedBar);
-            }
+            if (compareArrays(testArray, getSortingStep(0))) [array, selectedBar] = switchToLastStep(array, i, j, selectedBar);
             highlightTrigger = false;
             selectedBar.classList.remove("selected");
             highlightedBar.classList.remove("highlighted");
