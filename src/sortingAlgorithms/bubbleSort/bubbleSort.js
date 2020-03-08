@@ -38,6 +38,9 @@ const bubbleSortModule = (() => {
     const getResetState        = () => sortingController.getResetState();
     const getCompleteSortState = () => sortingController.getCompleteSortState();
     const getLastStepTrigger   = () => sortingController.getLastStepTrigger();
+    const setLastStepTrigger   = () => sortingController.setLastStepTrigger();
+    const getNextStepTrigger   = () => sortingController.getNextStepTrigger();
+    const setNextStepTrigger   = () => sortingController.setNextStepTrigger();
     const getSortedArray       = () => sortingController.getSortedArray();
 
     const bubbleSort = arrayOriginal => {
@@ -80,8 +83,13 @@ const bubbleSortModule = (() => {
 
                     } else if (getLastStepTrigger()) {
                         [array, testArray, i, j, step, selectedBar, highlightedBar] = handleLastStepTrigger(array, testArray, i, j, step, selectedBar, highlightedBar);
-                    }
+                        setLastStepTrigger();
                     
+                    } else if (getNextStepTrigger()) {
+                        console.log("Next Step Triggered");
+                        setNextStepTrigger();
+                    }
+
                     j = await handlePause(j);
 
                 } else if (array[i] > array[j]) {

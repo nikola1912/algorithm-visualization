@@ -3,7 +3,6 @@ import sortingController from "sortingController.js";
 
 const getSortingStep       = (step) => sortingController.getSortingStep(step);
 const setResetState        = ()     => sortingController.setResetState();
-const setLastStepTrigger   = ()     => sortingController.setLastStepTrigger();
 
 const compareArrays = (array1, array2) => {
     if (array1.length != array2.length)
@@ -52,7 +51,6 @@ const handleLastStepTrigger = (array, testArray, i, j, step, selectedBar, highli
             selectedBar.classList.remove("selected");
             highlightedBar.classList.remove("highlighted");
             setResetState();
-            setLastStepTrigger();
             return [array, testArray, i, j, step, selectedBar, highlightedBar];
         } else {
             [array, testArray, i, j, highlightedBar, selectedBar] = standardSwitch(array, testArray, i, j, highlightedBar, selectedBar);
@@ -69,7 +67,6 @@ const handleLastStepTrigger = (array, testArray, i, j, step, selectedBar, highli
     if (highlightTrigger) {
         highlightedBar = chart.children[j];
         highlightedBar.classList.add("highlighted");
-        setLastStepTrigger();
     }
 
     return [array, testArray, i, j, step, selectedBar, highlightedBar]

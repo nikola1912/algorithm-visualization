@@ -34,6 +34,8 @@ const sortingController = (() => {
     const getCompleteSortState = () => completeSortState;
     const getLastStepTrigger   = () => lastStepTrigger;
     const setLastStepTrigger   = () => lastStepTrigger = !lastStepTrigger;
+    const getNextStepTrigger   = () => nextStepTrigger;
+    const setNextStepTrigger   = () => nextStepTrigger = !nextStepTrigger;
     
     const handleSort = async (event, inputArray, inputI, inputSteps) => {
         if (!sortingState && !isSorted) {
@@ -90,13 +92,11 @@ const sortingController = (() => {
             pauseState = true;
             displayController.toggleSort();
             handleSort(null, getSortedArray(), array.length - 2, sortingSteps.length - 1);
-        } else {
-            lastStepTrigger = true;
-        }
+        } else lastStepTrigger = true;
     };
     
     const handleNextStep = () => {
-        
+        nextStepTrigger = true;
     };
     
     const handleCompleteSort = () => {
@@ -166,7 +166,9 @@ const sortingController = (() => {
         setResetState,
         getCompleteSortState,
         getLastStepTrigger,
-        setLastStepTrigger
+        setLastStepTrigger,
+        getNextStepTrigger,
+        setNextStepTrigger
     };
 })();
 
