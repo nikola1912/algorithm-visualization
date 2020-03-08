@@ -1,7 +1,7 @@
-import testObjects from "./testObjects.js";
-import displayController from "./displayController.js";
-import sortingController from "./sortingController.js";
-import bubbleSortModule from "./sortingAlgorithms/bubbleSort/bubbleSort.js";
+import testObjects       from "testObjects.js";
+import displayController from "displayController.js";
+import sortingController from "sortingController.js";
+import bubbleSortModule  from "sortingAlgorithms/bubbleSort/bubbleSort.js";
 
 const testArray = testObjects.testArray.slice();
 sortingController.setArray(testArray);

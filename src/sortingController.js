@@ -1,5 +1,5 @@
-import displayController from "./displayController.js";
-import bubbleSortModule from "./sortingAlgorithms/bubbleSort/bubbleSort.js";
+import displayController from "displayController.js";
+import bubbleSortModule  from "sortingAlgorithms/bubbleSort/bubbleSort.js";
 
 const sortingController = (() => {
     
