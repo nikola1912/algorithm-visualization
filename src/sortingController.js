@@ -1,5 +1,5 @@
 import displayController from "./displayController.js";
-import sortingAlgorithms from "./sortingAlgorithms.js";
+import bubbleSortModule from "./sortingAlgorithms/bubbleSort/bubbleSort.js";
 
 const sortingController = (() => {
     
@@ -43,7 +43,7 @@ const sortingController = (() => {
                 displayController.buttonsOFF();
             }
 
-            setSortedArray(await sortingAlgorithms.bubbleSortVisualized(inputArray ? inputArray : array, inputI ? inputI : null, inputSteps ? inputSteps : 0));
+            setSortedArray(await bubbleSortModule.bubbleSortVisualized(inputArray ? inputArray : array, inputI ? inputI : null, inputSteps ? inputSteps : 0));
             
             displayController.displayPlay();
             displayController.buttonsON();
@@ -101,7 +101,7 @@ const sortingController = (() => {
     
     const handleCompleteSort = () => {
         if (!isSorted) {
-            setSortedArray(sortingAlgorithms.bubbleSort(array));
+            setSortedArray(bubbleSortModule.bubbleSort(array));
             displayController.drawArray(sortedArray, true);
             if (!sortingState) {
                 isSorted = true; 
