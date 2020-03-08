@@ -134,7 +134,7 @@ const sortingController = (() => {
     };
     
     const applyEventListeners = () => {
-        document.getElementById("sortButton")        .addEventListener("click", handleSort);
+        document.getElementById("sortButton")        .addEventListener("mousedown", handleSort);
         document.getElementById("unsortButton")      .addEventListener("click", handleUnsort);
         document.getElementById("lastStepButton")    .addEventListener("click", handleLastStep);
         document.getElementById("nextStepButton")    .addEventListener("click", handleNextStep);
@@ -143,19 +143,19 @@ const sortingController = (() => {
         document.addEventListener("keydown", (event) => {
             switch (event.code) {
                 case "Space":
-                    handleSort();
+                    if (!document.getElementById("sortButton").disabled) handleSort();
                     break;
                 case "Backspace":
-                    handleUnsort();
+                    if (!document.getElementById("unsortButton").disabled) handleUnsort();
                     break
                 case "ArrowLeft":
-                    handleLastStep();
+                    if (!document.getElementById("lastStepButton").disabled) handleLastStep();
                     break;
                 case "ArrowRight":
-                    handleNextStep();
+                    if (!document.getElementById("nextStepButton").disabled) handleNextStep();
                     break;
                 case "Enter":
-                    handleCompleteSort();
+                    if (!document.getElementById("completeSortButton").disabled) handleCompleteSort();
                     break;
                 case "ArrowUp":
                     setSpeed(getSpeed() - 30);
