@@ -55,6 +55,8 @@ const sortingController = (() => {
                 pauseState = false;
                 isSorted = true;
                 displayController.toggleSort();
+                document.getElementById("nextStepButton").disabled = true;
+                document.getElementById("completeSortButton").disabled = true;
                 console.log(sortedArray);
             } else {
                 sortingState = false;
@@ -84,6 +86,8 @@ const sortingController = (() => {
         isSorted = false; 
         document.getElementById("unsortButton").disabled = true;
         document.getElementById("lastStepButton").disabled = true;
+        document.getElementById("nextStepButton").disabled = false;
+        document.getElementById("completeSortButton").disabled = false;
     };
 
     const handleLastStep = () => {
@@ -93,6 +97,8 @@ const sortingController = (() => {
             displayController.toggleSort();
             handleSort(null, getSortedArray(), array.length - 2, sortingSteps.length - 1);
         } else lastStepTrigger = true;
+        document.getElementById("nextStepButton").disabled = false;
+        document.getElementById("completeSortButton").disabled = false;
     };
     
     const handleNextStep = () => {
@@ -110,6 +116,8 @@ const sortingController = (() => {
                 console.log(sortedArray);
             } else completeSortState = true;
         }
+        document.getElementById("nextStepButton").disabled = true;
+        document.getElementById("completeSortButton").disabled = true;
     };
 
     const handleSpeedChange = () => {
